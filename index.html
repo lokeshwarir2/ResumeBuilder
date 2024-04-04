@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Form</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Custom CSS -->
+  <style>
+    .container {
+      margin-top: 20px;
+    }
+    .heading {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .btn-add {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="heading">
+      <h1>Resume Form</h1>
+    </div>
+    <form id="resumeForm">
+      <div class="form-group">
+        <label for="name" class="text-left"><i class="fas fa-user fa-lg" style="color: #2375e1;"></i> Name:</label>
+        <input type="text" id="name" name="name" class="form-control" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="mobile" class="text-left"><i class="fas fa-phone fa-lg" style="color: #2375e1;"></i> Mobile Number (Indian):</label>
+        <input type="tel" id="mobile" name="mobile" class="form-control" pattern="[0-9]{10}" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="text-left"><i class="fas fa-envelope fa-lg" style="color: #2375e1;"></i> Email:</label>
+        <input type="email" id="email" name="email" class="form-control" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="github" class="text-left"><i class="fab fa-github fa-lg" style="color: #2375e1;"></i> GitHub Link:</label>
+        <input type="url" id="github" name="github" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="linkedin" class="text-left"><i class="fab fa-linkedin fa-lg" style="color: #2375e1;"></i> LinkedIn Link:</label>
+        <input type="url" id="linkedin" name="linkedin" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="location" class="text-left"><i class="fas fa-map-marker-alt fa-lg" style="color: #2375e1;"></i> Location:</label>
+        <input type="text" id="location" name="location" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="careerObjective" class="text-left"><i class="fas fa-bullseye fa-lg" style="color: #2375e1;"></i> Career Objective:</label>
+        <textarea id="careerObjective" name="careerObjective" class="form-control" rows="4" cols="50"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="technicalSkills" class="text-left"><i class="fas fa-code fa-lg" style="color: #2375e1;"></i> Technical Skills:</label>
+        <input type="text" id="skill" name="skill" class="form-control" />
+        <button type="button" class="btn btn-primary btn-add" onclick="addSkill()">Add Skill</button>
+        <ul id="skillList"></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="technicalSummary" class="text-left"><i class="fas fa-project-diagram fa-lg" style="color: #2375e1;"></i> Projects:</label>
+        <input type="text" id="summaryHeader" name="summaryHeader" class="form-control" placeholder="Header" />
+        <textarea id="summaryDescription" name="summaryDescription" class="form-control" placeholder="Description" rows="4" cols="50"></textarea>
+        <button type="button" class="btn btn-primary btn-add" onclick="addSummary()">Add Summary</button>
+        <ul id="summaryList"></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="education" class="text-left"><i class="fas fa-graduation-cap fa-lg" style="color: #2375e1;"></i> Education Qualifications:</label>
+        <input type="text" id="institution" name="institution" class="form-control" placeholder="Institution Name" />
+        <input type="text" id="course" name="course" class="form-control" placeholder="Course" />
+        <input type="text" id="percentage" name="percentage" class="form-control" placeholder="Percentage" />
+        <button type="button" class="btn btn-primary btn-add" onclick="addEducation()">Add Education</button>
+        <ul id="educationList"></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="achievements" class="text-left"><i class="fas fa-trophy fa-lg" style="color: #2375e1;"></i> Achievements:</label>
+        <input type="text" id="achievement" name="achievement" class="form-control" />
+        <button type="button" class="btn btn-primary btn-add" onclick="addAchievement()">Add Achievement</button>
+        <ul id="achievementList"></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="languages" class="text-left"><i class="fas fa-language fa-lg" style="color: #2375e1;"></i> Languages:</label>
+        <input type="text" id="language" name="language" class="form-control" />
+        <button type="button" class="btn btn-primary btn-add" onclick="addLanguage()">Add Language</button>
+        <ul id="languageList"></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="hobbies" class="text-left"><i class="fa-regular fa-newspaper fa-lg" style="color: #2375e1;"></i>Certifications:</label>
+        <input type="text" id="hobby" name="hobby" class="form-control" />
+        <button type="button" class="btn btn-primary btn-add" onclick="addHobby()">Add Certifications</button>
+        <ul id="hobbyList"></ul>
+      </div>
+
+      <div class="form-group">
+        <label for="photo" class="text-left"><i class="fas fa-camera fa-lg" style="color: #2375e1;"></i> Upload Photo:</label>
+        <input type="file" id="imageInput" class="form-control" accept="image/*" />
+        <input type="button" onclick="saveImage()" value="Add" />
+        <!-- <input type="file" id="photo" name="photo" class="form-control" /> -->
+        <!-- <img id="photoPreview" src="" alt="Preview" style="display: none; max-width: 200px; margin-top: 10px" /> -->
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS and jQuery (optional) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="scripto.js"></script> <!-- Your custom JavaScript file -->
+</body>
+</html>

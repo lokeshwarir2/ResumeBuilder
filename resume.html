@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Resume</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="resume.css">
+  <style>
+    .body1{
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(5px);
+      z-index: 0;
+    }
+    .container{
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+    .rounded-photo {
+      border-radius: 50%;
+    }
+    #lang li {
+    border: 1px solid #2375e1;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px;
+} #Skill li {
+    border: 1px solid #2375e1;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px;
+}
+#Achievement li {
+    border: 1px solid #2375e1;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px;
+}
+
+    .heading {
+      height: 170px;
+    }
+    .contact ul{
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+    }
+    .myimage {
+      height: 240px;
+      width: 247px;
+      position: relative;
+      top: 43px;
+    }
+    .contact-heading, .edu-heading, .lang-heading, .obj-heading, .skill-heading, .tech-summary-heading, .achievement-heading, .hobbies-heading {
+      position: relative;
+      display: inline-block;
+    }
+    .education li, .language li, .skill li, .achievement li {
+      margin: 5px;
+    }
+    #imageContainer img{
+      max-height: 180px;
+      max-width: 180px;
+      border-radius: 50%;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+<div class="body1">
+  <div class="container" id="printContainer">
+    <div class="row mt-12 heading bg-primary text-light">
+      <div class="col-md-8 d-flex justify-content-center myname" id="myname"></div>
+      <div class="col-md-4 d-flex justify-content-center align-items-end image" id="myimage">
+        <div id="imageContainer"></div>  
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <div class="contact">
+          <h4 class="contact-heading"><i class="fas fa-user fa-lg" style="color: #2375e1;"></i> My Contact</h4>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-mobile-alt mr-2"></i> Phone: <span id="phone"></span></li>
+            <li><i class="fas fa-envelope mr-2"></i> Email: <span id="email"></span></li>
+            <li><i class="fab fa-github mr-2"></i> GitHub: <span id="github"></span></li>
+            <li><i class="fab fa-linkedin mr-2"></i> LinkedIn: <span id="linkedin"></span></li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> Location: <span id="location"></span></li>
+          </ul>
+        </div>
+        <div class="education">
+          <h4 class="edu-heading"><i class="fas fa-graduation-cap fa-lg" style="color: #2375e1;"></i> Education</h4>
+          <ul id="educate"></ul>
+        </div>
+        <div class="language">
+          <h4 class="lang-heading"><i class="fas fa-language fa-lg" style="color: #2375e1;"></i> Languages</h4>
+          <ul id="lang"></ul>
+        </div>
+        <div class="skill">
+            <h3 class="skill-heading"><i class="fas fa-cogs fa-lg" style="color: #2375e1;"></i> Skills</h3>
+            <ul class="skill" id="Skill"></ul>
+          </div>
+      </div>
+      <div class="col-md-8">
+        <div class="objective">
+          <h3 class="obj-heading"><i class="fas fa-binoculars fa-lg" style="color: #2375e1;"></i> Career Objective</h3>
+          <p id="Objective"></p>
+        </div>
+        
+        <div class="tech-summary">
+          <h3 class="tech-summary-heading"><i class="fas fa-project-diagram fa-lg" style="color: #2375e1;"></i> Projects</h3>
+          <ul class="tech-summary" id="Project"></ul>
+        </div>
+        <div class="achievement">
+          <h3 class="achievement-heading"><i class="fas fa-trophy fa-lg" style="color: #2375e1;"></i> Achievements</h3>
+          <ul class="achievement" id="Achievement"></ul>
+        </div>
+        <div class="hobbies">
+          <h3 class="hobbies-heading"><i class="fa-regular fa-newspaper fa-lg" style="color: #2375e1;"></i> Certifications</h3>
+          <ul class="hobbies" id="Hobbies"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Generate Resume Button -->
+<div class="container mt-3">
+  <button class="btn btn-primary" onclick="generateResume()">Generate Resume</button>
+</div>
+
+<script>
+  window.onload = function () {
+    const imageData = localStorage.getItem("imageData");
+    if (imageData) {
+      const imageContainer = document.getElementById("imageContainer");
+      const image = new Image();
+      image.src = imageData;
+      imageContainer.appendChild(image);
+    }
+  }
+
+  // JavaScript
+  document.addEventListener("DOMContentLoaded", function () {
+    const formData = JSON.parse(localStorage.getItem("formData"));
+    if (formData) {
+      displayResume(formData);
+    }
+  });
+
+  function displayResume(formData) {
+    const myname = document.getElementById("myname");
+    const phone = document.getElementById("phone");
+    const email = document.getElementById("email");
+    const github = document.getElementById("github");
+    const linkedin = document.getElementById("linkedin");
+    const location = document.getElementById("location");
+    let lang = document.getElementById("lang");
+    const Objective = document.getElementById("Objective");
+    let Skill = document.querySelector(".skill ul");
+    let Project = document.querySelector(".tech-summary ul");
+    let Achievement = document.querySelector(".achievement ul");
+    let Hobbies = document.querySelector(".hobbies ul");
+
+    // Name
+    myname.innerHTML += `<h2 class="display-2">${formData.name}</h2>`;
+    // My Contact
+    phone.innerHTML += ` ${formData.mobile}`;
+    email.innerHTML += `${formData.email}`;
+    github.innerHTML += ` ${formData.github}`;
+    linkedin.innerHTML += ` ${formData.linkedin}`;
+    location.innerHTML += ` ${formData.location}`;
+    // Career Objective
+    if (formData.careerObjective) {
+      Objective.innerHTML += `${formData.careerObjective}`;
+    }
+    // Skills
+    if (formData.skills.length > 0) {
+      Skill.innerHTML += `${formData.skills.map((skill) => `<li><strong>${skill}</strong></li>`).join("")}`;
+    }
+    // Projects
+    if (formData.summaries.length > 0) {
+      Project.innerHTML += `${formData.summaries.map((summary) => `<li><strong>${summary.header}</strong>: ${summary.description}</li>`).join("")}`;
+    }
+    // Education
+    if (formData.education.length > 0) {
+      educate.innerHTML += `${formData.education.map((edu) => `<li>${edu.institution} - ${edu.course} (${edu.percentage}%)</li>`).join("")}`;
+    }
+    // Achievements
+    if (formData.achievements.length > 0) {
+      Achievement.innerHTML += `${formData.achievements.map((achievement) => `<li>${achievement}</li>`).join("")}`;
+    }
+    // Languages
+    if (formData.languages.length > 0) {
+      lang.innerHTML += `${formData.languages.map((language) => `<li>${language}</li>`).join("")}`;
+    }
+    // Hobbies
+    if (formData.hobbies.length > 0) {
+      Hobbies.innerHTML += `${formData.hobbies.map((hobby) => `<li>${hobby}</li>`).join("")}`;
+    }
+  }
+
+  function generateResume() {
+    const printContent = document.getElementById("printContainer").innerHTML;
+    const originalContent = document.body.innerHTML;
+    document.body.innerHTML = printContent;
+    window.print();
+    document.body.innerHTML = originalContent;
+  }
+</script>
+</body>
+</html>
