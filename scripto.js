@@ -63,7 +63,22 @@ function displaySummaries() {
     summaryList.appendChild(li);
   });
 }
+function formatDate(inputDate) {
+  // Get the complete date from the input field
+  const date = new Date(inputDate);
+  
+  // Create an array of month abbreviations
+  const monthAbbreviations = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+  // Extract the month and year
+  const monthAbbrev = monthAbbreviations[date.getMonth()]; // Get the abbreviation from the array
+  const year = date.getFullYear();
+  
+  // Format the month and year
+  const formattedDate = monthAbbrev + '-' + year.toString();
+  
+  return formattedDate;
+}
 function addEducation() {
   const institutionInput = document.getElementById("institution");
   const courseInput = document.getElementById("course");
@@ -71,36 +86,47 @@ function addEducation() {
   const institution = institutionInput.value.trim();
   const course = courseInput.value.trim();
   const percentage = percentageInput.value.trim();
+  const per = document.getElementById("per");
 
-  // Validate percentage input
-  if (institution !== "" && course !== "" && percentage !== "") {
-    const percentageValue = parseFloat(percentage);
-    if (!isNaN(percentageValue) && percentageValue >= 0 && percentageValue <= 100) {
-      const edu = { institution, course, percentage };
-      education.push(edu);
-      institutionInput.value = "";
-      courseInput.value = "";
-      percentageInput.value = "";
-      displayEducation();
-    } else {
-      alert("Please enter a valid percentage (0-100).");
-      percentageInput.focus();
-    }
+  const startdatee = document.getElementById("startdate").value;
+  const startdate=formatDate(startdatee);
+  const enddatee = document.getElementById("enddate").value;
+  const enddate=formatDate(enddatee);
+  const start = startdate;
+  const end = enddate;
+  per.innerHTML = "";
+  if (
+    institution !== "" &&
+    course !== "" &&
+    percentage !== "" &&
+    percentage > 0 &&
+    percentage < 100
+  ) {
+    const edu = { institution, course, percentage, start, end };
+    education.push(edu);
+    institutionInput.value = "";
+    courseInput.value = "";
+    percentageInput.value = "";
+    startdate.value = "";
+    enddate.value = "";
+
+    displayEducation();
   } else {
-    alert("Please fill in all fields.");
+    per.innerHTML = `<p>Input Valid Percentage</p>`;
   }
 }
-
 
 function displayEducation() {
   const educationList = document.getElementById("educationList");
   educationList.innerHTML = "";
   education.forEach((edu) => {
     const li = document.createElement("li");
-    li.textContent = `${edu.institution} - ${edu.course} (${edu.percentage}%)`;
+    li.textContent = `${edu.institution} - ${edu.course} (${edu.percentage}%)    From ${edu.start}  To ${edu.end}`;
     educationList.appendChild(li);
   });
 }
+
+
 
 function addAchievement() {
   const achievementInput = document.getElementById("achievement");
